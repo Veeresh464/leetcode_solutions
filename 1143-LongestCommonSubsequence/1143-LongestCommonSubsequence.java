@@ -31,9 +31,7 @@ class Solution {
         for(int i=0; i<a.length(); i++){
             for(int j=0; j<b.length(); j++){
                 if(a.charAt(i) == b.charAt(j)) dp[i][j] = 1+ ((i-1 >= 0 && j-1 >= 0)? dp[i-1][j-1]:0);
-                else{
-                    dp[i][j] = Math.max( (i-1 >= 0)? dp[i-1][j]:0 , (j-1 >= 0)? dp[i][j-1]:0);
-                }
+                else dp[i][j] = Math.max( (i-1 >= 0)? dp[i-1][j]:0 , (j-1 >= 0)? dp[i][j-1]:0);
             }
         }
         return dp[a.length()-1][b.length()-1];
