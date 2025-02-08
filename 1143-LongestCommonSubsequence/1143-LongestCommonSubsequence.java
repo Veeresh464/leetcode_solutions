@@ -1,4 +1,5 @@
 class Solution {
+    // recursive
     // int getAns(StringBuilder text1, StringBuilder text2, int t1, int t2, int [][] dp){
     //     if(t1<0 || t2<0) return 0;
 
@@ -22,6 +23,7 @@ class Solution {
     //     return getAns(a, b, a.length()-1, b.length()-1, dp);
     // }
 
+    // tabulation
     public int longestCommonSubsequence(String text1, String text2) {
         StringBuilder a = new StringBuilder(text1);
         StringBuilder b = new StringBuilder(text2);
