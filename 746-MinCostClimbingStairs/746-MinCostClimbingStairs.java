@@ -19,7 +19,7 @@ class Solution {
     //     return Math.min(a1,a2);
     // }
 
-
+    //tabulation
     public int minCostClimbingStairs(int[] cost) {
         if(cost.length == 1) return cost[0];
         if(cost.length == 2) return Math.min(cost[0], cost[1]);
