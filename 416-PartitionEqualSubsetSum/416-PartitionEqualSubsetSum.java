@@ -1,18 +1,28 @@
 class Solution {
 
     boolean getAns(int nums[], int tgt, int idx, int dp[][]){
-        // if(idx == nums.length){
-        //     if(tgt == 0) return true;
-        //     else return false;
-        // }
-        if(tgt == 0) return true;
-        if(idx >= nums.length || tgt < 0) return false;
+        if(idx == nums.length){
+            if(tgt == 0) return true;
+            else return false;
+        }
+        // if(tgt == 0) return true;
+        // if(idx >= nums.length || tgt < 0) return false;
 
         if(dp[idx][tgt] != -1){
             if(dp[idx][tgt] == 1) return true;
             else return false;
         } 
         boolean skip = getAns(nums,tgt,idx+1,dp);
+        if(tgt - nums[idx] < 0){
+            if(skip){
+                dp[idx][tgt] = 1;
+                return true;
+            }
+            else{
+                dp[idx][tgt] = 0;
+                return false;
+            }
+        }
         boolean take = getAns(nums,tgt-nums[idx], idx+1,dp);
         if(skip || take) dp[idx][tgt] = 1;
         else dp[idx][tgt] = 0;
