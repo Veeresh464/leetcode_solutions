@@ -14,6 +14,21 @@ class Solution {
         }
     }
 
+    void DFS(int arr[][], int visited[], int i){
+        Stack <Integer> st = new Stack<>();
+        st.push(i);
+        visited[i] = 1;
+        while(!st.isEmpty()){
+            int rem = st.pop();
+            for(int j=0; j<arr[rem].length; j++){
+                if(arr[rem][j] == 1 && visited[j] == 0){
+                    st.push(j);
+                    visited[j] = 1;
+                }
+            }
+        }
+    }
+
     public int findCircleNum(int[][] arr) {
         int n = arr.length;
         int visited[] = new int[n];
@@ -21,7 +36,8 @@ class Solution {
         for(int i=0; i<visited.length; i++){
             if(visited[i]!=1){
                 count++;
-                BFS(arr,visited,i);
+                // BFS(arr,visited,i);
+                DFS(arr,visited,i);
             }
         }
         return count;
