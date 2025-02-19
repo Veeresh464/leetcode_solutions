@@ -36,8 +36,8 @@ class Solution {
         for(int i=0; i<visited.length; i++){
             if(visited[i]!=1){
                 count++;
-                // BFS(arr,visited,i);
-                DFS(arr,visited,i);
+                BFS(arr,visited,i);
+                // DFS(arr,visited,i);
             }
         }
         return count;
