@@ -1,20 +1,13 @@
-class Solution {
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        d = defaultdict(int)
+        d[0] = 1
 
-    int getAns(int arr[], int target, int idx, int sum){
-        
-        if(idx == arr.length){
-            if(sum == target) return 1;
-            else return 0;
-        }
+        for num in nums:
+            dp = defaultdict(int)
+            for k, v in d.items():
+                dp[k + num] += v
+                dp[k - num] += v
+            d = dp
 
-        int add = getAns(arr, target, idx+1, sum+arr[idx]);
-        int sub = getAns(arr,target, idx+1, sum-arr[idx]);
-
-        return add+sub;
-
-    }
-
-    public int findTargetSumWays(int[] nums, int target) {
-        return getAns(nums,target,0,0);
-    }
-}
+        return d[target]
