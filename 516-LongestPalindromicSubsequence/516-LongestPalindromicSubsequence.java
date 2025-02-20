@@ -27,6 +27,7 @@ class Solution {
     //     return getLCS(s,str, s.length()-1, str.length()-1, dp);
     // }
 
+    //tabulation
     public int longestPalindromeSubseq(String s1) {
         int n = s1.length();
         String s2 = new StringBuilder(s1).reverse().toString();
