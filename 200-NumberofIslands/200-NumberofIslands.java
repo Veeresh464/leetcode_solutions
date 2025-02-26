@@ -74,18 +74,22 @@ class Solution {
         visited[cr][cc] = 1;
         while(!q.isEmpty()){
             Pair res = q.poll();
+            //top
             if(res.getI()-1 >= 0 && grid[res.getI()-1][res.getJ()] != '0' && visited[res.getI()-1][res.getJ()] == 0){
                 q.add(new Pair(res.getI()-1, res.getJ()));
                 visited[res.getI()-1][res.getJ()] = 1;
             }
+            //down
             if(res.getI()+1 < grid.length && grid[res.getI()+1][res.getJ()] != '0' && visited[res.getI()+1][res.getJ()] == 0){
                 q.add(new Pair(res.getI()+1,res.getJ()));
                 visited[res.getI()+1][res.getJ()] = 1;
             }
+            //left
             if(res.getJ()-1 >= 0 && grid[res.getI()][res.getJ()-1] != '0' && visited[res.getI()][res.getJ()-1] == 0){
                 q.add(new Pair(res.getI(),res.getJ()-1));
                 visited[res.getI()][res.getJ()-1] = 1;
             }
+            //right
             if(res.getJ()+1 < grid[res.getI()].length && grid[res.getI()][res.getJ()+1] != '0' && visited[res.getI()][res.getJ()+1] == 0){
                 q.add(new Pair(res.getI(),res.getJ()+1));
                 visited[res.getI()][res.getJ()+1] = 1;
