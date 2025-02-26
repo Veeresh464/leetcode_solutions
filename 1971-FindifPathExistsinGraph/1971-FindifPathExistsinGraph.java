@@ -14,25 +14,19 @@ class Solution {
             }
         }
     }
-
-
     public boolean validPath(int n, int[][] edges, int source, int destination) {
-        // int graph[][] = new int[n][n];
-        // for(int i=0; i<edges.length; i++){
-        //     graph[edges[i][0]][edges[i][1]]++;
-        //     graph[edges[i][1]][edges[i][0]]++;
-        // }
-        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            graph.add(new ArrayList<>());
+        ArrayList<ArrayList<Integer>> arr = new ArrayList<>();
+        for(int i=0; i<n; i++){
+            arr.add(new ArrayList<>());
         }
+
         for(int i=0; i<edges.length; i++){
-            graph.get(edges[i][0]).add(edges[i][1]);
-            graph.get(edges[i][1]).add(edges[i][0]);
+            arr.get(edges[i][0]).add(edges[i][1]);
+            arr.get(edges[i][1]).add(edges[i][0]);
         }
 
         int visited[] = new int[n];
-        BFS(graph, visited, source);
+        BFS(arr, visited, source);
         for(int i=0; i<n; i++){
             if(i == destination && visited[i] == 0) return false;
         }
