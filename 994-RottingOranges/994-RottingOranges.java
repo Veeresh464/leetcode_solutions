@@ -17,53 +17,71 @@ class Solution {
         }
     }
 
-
-    public int orangesRotting(int[][] grid) {
-        int rows = grid.length;
-        int cols = grid[0].length;
-        Queue<Pair> queue = new LinkedList<>();
-        int freshCount = 0;
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (grid[i][j] == 2) {
-                    queue.add(new Pair(i, j));
-                } else if (grid[i][j] == 1) {
-                    freshCount++;
+    int BFS(int arr[][], int row, int col){
+        ArrayDeque <Pair> q = new ArrayDeque<>();
+        int freshCnt = 0;
+        for(int i=0; i<arr.length; i++){
+            for(int j=0; j<arr[0].length; j++){
+                if(arr[i][j] == 2){
+                    q.add(new Pair(i,j));
+                }
+                else if(arr[i][j]==1){
+                    freshCnt++;
                 }
             }
         }
-        if (freshCount == 0) return 0;
-        int time = 0;
-        int[] dRow = {-1, 1, 0, 0};
-        int[] dCol = {0, 0, -1, 1};
+        if(freshCnt == 0) return 0;
+        q.add(new Pair(-1,-1));
+        int count = 0;
+        int freshCnt2 = 0;
+        while(!q.isEmpty()){
+            Pair res = q.poll();
+            int r = res.getI();
+            int c = res.getJ();
 
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            boolean rotted = false;
-
-            for (int i = 0; i < size; i++) {
-                Pair p = queue.poll();
-                int r = p.getI(), c = p.getJ();
-
-                // Visit 4 adjacent cells (top, bottom, left, right)
-                for (int d = 0; d < 4; d++) {
-                    int nr = r + dRow[d];
-                    int nc = c + dCol[d];
-
-                    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && grid[nr][nc] == 1) {
-                        grid[nr][nc] = 2; // Rot the orange
-                        queue.add(new Pair(nr, nc));
-                        freshCount--; // Reduce fresh count
-                        rotted = true;
-                    }
+            if(r == -1 && c == -1){
+                count++;
+                if(q.size() == 0) break;
+                else{
+                    q.add(new Pair(-1,-1));
+                    continue;
                 }
             }
-            if (rotted) time++;
-        }
 
-        // If there are still fresh oranges, return -1
-        return freshCount == 0 ? time : -1;
+            //top
+            if(r-1>=0 && arr[r-1][c] == 1){
+                arr[r-1][c] = 2;
+                q.add(new Pair(r-1,c));
+                freshCnt2++;
+            }
+            //bottom
+            if(r+1<row && arr[r+1][c] == 1){
+                arr[r+1][c] = 2;
+                q.add(new Pair(r+1,c));
+                freshCnt2++;
+            }
+            if(c-1>=0 && arr[r][c-1] == 1){
+                arr[r][c-1] = 2;
+                q.add(new Pair(r,c-1));
+                freshCnt2++;
+            }
+            if(c+1<col && arr[r][c+1] == 1){
+                arr[r][c+1] = 2;
+                q.add(new Pair(r,c+1));
+                freshCnt2++;
+            }
+        }
+        return (freshCnt2 == freshCnt)? count:-1;
+    }
+
+    public int orangesRotting(int[][] arr) {
+        int row = arr.length;
+        int col = arr[0].length;
+        
+        int ans = BFS(arr, row, col);
+
+        return (ans >= 0)? (ans > 0)? ans-1:ans : -1 ;
+        
     }
 
 }
